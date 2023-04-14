@@ -2,7 +2,7 @@ const request = require("supertest");
 const app = require("../app");
 const { Photo } = require("../models");
 
-describe("POST /Photo/register", () => {
+describe("POST /Photo/createPhoto", () => {
 
   afterAll(async () => {
     try {
@@ -11,15 +11,16 @@ describe("POST /Photo/register", () => {
       console.log(error);
     }
   });
-  
+
   // succsess test
   it("Should be response 201", (done) => {
     request(app)
-      .post("/users/register")
+      .post("/Photo/createPhoto")
       .send({
-        username: "admin",
-        email: "admin@mail.com",
-        password: "123456",
+        title: "Bocchi",
+        caption: "Bocchi The Rock!",
+        UserId: 2,
+        image_url: "https://drive.google.com/file/d/1FB9OCRPIDlaomoC0X6NDCpBsnGMqAYG5/view?usp=share_link",
       })
       .expect(201)
       .end((err, res) => {
@@ -27,9 +28,9 @@ describe("POST /Photo/register", () => {
           done(err);
         }
 
-        expect(res.body.username).toEqual("admin");
+        expect(res.body.title).toEqual("Bocchi");
         expect(res.body).toHaveProperty("id");
-        expect(res.body).toHaveProperty("username");
+        expect(res.body).toHaveProperty("title");
         done();
       });
   });
@@ -37,11 +38,12 @@ describe("POST /Photo/register", () => {
   // error response
   it("Should be response 500", (done) => {
     request(app)
-      .post("/users/register")
+      .post("/Photo/createPhoto")
       .send({
-        username: "admin",
-        email: "admin@mail.com",
-        password: "123456",
+        title: "Bocchi",
+        caption: "Bocchi The Rock!",
+        UserId: 2,
+        image_url: "https://drive.google.com/file/d/1FB9OCRPIDlaomoC0X6NDCpBsnGMqAYG5/view?usp=share_link",
       })
       .expect(500)
       .end((err, res) => {
@@ -54,7 +56,7 @@ describe("POST /Photo/register", () => {
 });
 
 // login
-describe("POST /users/login", () => {
+describe("POST /Photo/getPhotos", () => {
   afterAll(async () => {
     // destroy data users
     try {
@@ -67,9 +69,10 @@ describe("POST /users/login", () => {
   beforeAll(async () => {
     try {
       const result = await User.create({
-        username: "admin",
-        email: "admin@mail.com",
-        password: "123456",
+        title: "Bocchi",
+        caption: "Bocchi The Rock!",
+        UserId: 2,
+        image_url: "https://drive.google.com/file/d/1FB9OCRPIDlaomoC0X6NDCpBsnGMqAYG5/view?usp=share_link",
       });
     } catch (error) {
       console.log(error);
@@ -78,7 +81,7 @@ describe("POST /users/login", () => {
 
   it("Should response 200", (done) => {
     request(app)
-      .post("/users/login")
+      .post("/Photo/getPhotos")
       .send({
         email: "admin@mail.com",
         password: "123456",

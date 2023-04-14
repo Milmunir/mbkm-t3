@@ -2,13 +2,13 @@
 
 const data = [
   {
-    title: "Bocchi",
-    caption: "Bocchi The Rock!",
-    UserId: 2,
-    image_url: "https://drive.google.com/file/d/1FB9OCRPIDlaomoC0X6NDCpBsnGMqAYG5/view?usp=share_link",
+    title: "Rin",
+    caption: "Yuru Camp",
+    image_url: "https://drive.google.com/file/d/1vTSqluz09Y4e055quX_fBQm9BwXnR80S/view?usp=share_link",
+    UserId: 1,
     createdAt: new Date(),
     updatedAt: new Date()
-  },
+  }
 ]
 
 /** @type {import('sequelize-cli').Migration} */
@@ -33,6 +33,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete("Photos",null, {})
+    await queryInterface.bulkDelete("Photos", null, {})
   }
 };
